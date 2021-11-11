@@ -4,11 +4,13 @@ from django.db.models import Q
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from datetime import datetime
-import datetime
 
 class EventProcessorController:
     def store_event(self,event_meta):
-        print(event_meta)
+        now=datetime.now()
+        if datetime.strptime(event_meta['timestamp'].split('.')[0],'%Y-%m-%d %H:%M:%S') > now:
+            return 400
+        
         event=EventModel(
                     session_id = event_meta['session_id'],
                     name = event_meta['name'],
@@ -16,8 +18,12 @@ class EventProcessorController:
             )
         payload = event_meta['data']
         category_name = event_meta['category']
-        event.save(category_name,payload)
-    
+        try:
+            event.save(category_name,payload)
+            return 200
+        except:
+            return 500
+        
     def event_query(self,query_meta):
         if query_meta['filter'] == 'session':
             return self.__get_events_by_session(query_meta)    

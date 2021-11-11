@@ -24,14 +24,10 @@ class EventProcessorAPI(APIView):
             query_meta = post_data['query_meta']
             return  self.get_event(query_meta)
              
-        if post_data['action'] =='date-range':
-            query_meta = post_data['query_meta']
-            return self.get_event(query_meta)
-             
     def store_event(self,event_meta):
         try:
-            EventProcessorController().store_event(event_meta)
-            return JsonResponse({"status":200})
+            response=EventProcessorController().store_event(event_meta)
+            return JsonResponse({"status":response})
         except:
             return JsonResponse({"status":500})
         
