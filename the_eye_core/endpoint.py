@@ -16,8 +16,6 @@ class EventProcessorAPI(APIView):
         if self.validate_client_key(client_key) is False:
             response={'status':401}
             return JsonResponse(response)
-
-            
         
         if post_data['action'] =='store':
             return self.store_event(post_data['event'])
@@ -31,11 +29,14 @@ class EventProcessorAPI(APIView):
             return self.get_event(query_meta)
              
     def store_event(self,event_meta):
-        EventProcessorController().store_event(event_meta)
-    
+        try:
+            EventProcessorController().store_event(event_meta)
+            return JsonResponse({"status":200})
+        except:
+            return JsonResponse({"status":500})
+        
     def get_event(self,query_meta):
         response = EventProcessorController().event_query(query_meta)
-        print(response)
         return JsonResponse({ 
                              "status":200,
                              'payload':response
