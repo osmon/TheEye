@@ -11,3 +11,5 @@ The Eye is based on Django Rest Framework module. it has an endpoint called Even
                 All the 3 methods return a dictionary with the relevant information and data.
  
 The API is waiting for a POST and "CLIENT_KEY" value, if the user does not send the valid key it is going to return a 401 error, indicating that it was a unauthorized request. 
+
+All the data are been stored in SQLite file using 5 different models: FormModel,PayloadModel,CategoryModel,EventModel,CaterogyFieldsModel
