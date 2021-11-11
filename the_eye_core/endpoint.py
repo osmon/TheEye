@@ -8,9 +8,26 @@ class EventProcessorAPI(APIView):
         post_data = request.data
         
         if post_data['action'] =='store':
-            self.store_event(post_data['event'])    
-            
+            self.store_event(post_data['event'])
+        if post_data['action'] =='query':
+            query_meta = post_data['query_meta']
+            self.get_event(query_meta)
+             
+        if post_data['action'] =='date-range':
+            query_meta = post_data['query_meta']
+            self.get_event(query_meta)
+             
     def store_event(self,event_meta):
         EventProcessorController().store_event(event_meta)
+    
+    def get_event(self,query_meta):
+        response = EventProcessorController().event_query(query_meta)
+    
+        
+        
+        
+        
+    
+
     
    
