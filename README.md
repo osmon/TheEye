@@ -1,5 +1,6 @@
 # TheEye
-The Eye is based on Django Rest Framework module. it has django module with an endpoint called EventProcessorAPI wich has 2 methods for attending requests
+The Eye is based on Django Rest Framework module. it has django module with an endpoint called EventProcessorAPI wich has 2 methods for attending requests:
+
  1)"store_event": This method store an event that has been sent.
  2)"get_event": In order to the user get the requested events data, a client application need to consult the API sending a JSON with the field "action" filled 
                 with one of the next options:
